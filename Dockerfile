@@ -10,7 +10,7 @@ ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 RUN npm run build
 
 # ---- 阶段 2：后端构建（打出 fat jar，运行期不再需要 sbt） ----
-FROM sbtscala/scala-sbt:eclipse-temurin-25.0.2_1.10.1_3.3.3 AS backend-build
+FROM sbtscala/scala-sbt:eclipse-temurin-21.0.7_6_1.10.11_3.3.6 AS backend-build
 WORKDIR /app
 COPY backend/build.sbt ./
 COPY backend/project ./project
