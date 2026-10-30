@@ -21,6 +21,7 @@ const ProgramsPage = lazy(() => import('@/pages/official/ProgramsPage'))
 const FacultyPage = lazy(() => import('@/pages/official/FacultyPage'))
 const ResearchPage = lazy(() => import('@/pages/official/ResearchPage'))
 const ResultsPage = lazy(() => import('@/pages/official/ResultsPage'))
+const LegalPage = lazy(() => import('@/pages/official/LegalPage'))
 const EnrollPage = lazy(() => import('@/pages/official/EnrollPage'))
 
 const allPlatformRoles = [
@@ -32,6 +33,7 @@ const allPlatformRoles = [
 ]
 
 const routes = [
+  { path: '/legal', element: <LegalPage /> },
   {
     path: '/login',
     element: <LoginPage />,
