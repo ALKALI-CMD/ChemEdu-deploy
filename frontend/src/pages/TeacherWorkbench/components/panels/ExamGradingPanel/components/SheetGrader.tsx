@@ -33,6 +33,8 @@ export default function SheetGrader({
   const [draftScores, setDraftScores] = useState<Record<string, string>>({})
   const [draftComments, setDraftComments] = useState<Record<string, string>>({})
   const [savingQuestionId, setSavingQuestionId] = useState<string | null>(null)
+  const [mobilePane, setMobilePane] = useState<'sheet' | 'score'>('sheet')
+  const [saved, setSaved] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const scoreByQuestion = useMemo(
@@ -75,10 +77,13 @@ export default function SheetGrader({
       setError(`分数必须在 0 到 ${question.maxScore} 之间。`)
       return
     }
+    if (savingQuestionId) return
+    setSaved(false)
     setSavingQuestionId(questionId)
     setError(null)
     try {
-      await onSaveScore(sheet.id, questionId, score, draftComments[questionId] ?? '')
+      await onSaveScore(sheet.id, questionId, score, draftComments[questionId] ?? scoreByQuestion.get(questionId)?.comment ?? '')
+      setSaved(true)
     } catch (saveError) {
       setError(saveError instanceof Error ? saveError.message : '保存失败，请重试。')
     } finally {
@@ -129,8 +134,13 @@ export default function SheetGrader({
 
       {error && <p className="rounded-lg bg-rose-50 px-4 py-2 text-sm text-rose-700">{error}</p>}
 
+      {saved && <p role="status" className="rounded-lg bg-primary/10 px-4 py-2 text-sm text-primary">判分已保存。</p>}
+      <div className="flex gap-2 lg:hidden" aria-label="阅卷视图">
+        <button type="button" className="academic-tab" aria-pressed={mobilePane === 'sheet'} onClick={() => setMobilePane('sheet')}>答题卡</button>
+        <button type="button" className="academic-tab" aria-pressed={mobilePane === 'score'} onClick={() => setMobilePane('score')}>逐题评分</button>
+      </div>
       <div className="grid items-start gap-4 lg:grid-cols-2">
-        <div className="lg:sticky lg:top-24">
+        <div className={`${mobilePane === 'sheet' ? 'block' : 'hidden'} lg:block lg:sticky lg:top-24`}>
           <SheetRegionOverlay
             imageUrl={sheet.imageDataUrl}
             regions={exam.gradingRegions}
@@ -141,7 +151,7 @@ export default function SheetGrader({
           />
         </div>
 
-        <div className="space-y-2">
+        <div className={`${mobilePane === 'score' ? 'block' : 'hidden'} space-y-2 lg:block`}>
           {exam.questions.map((question) => {
             const entry = scoreByQuestion.get(question.id)
             const isSelected = question.id === selectedQuestionId
@@ -173,6 +183,7 @@ export default function SheetGrader({
 
                 <div className="mt-2 flex flex-wrap items-center gap-2">
                   <input
+                    aria-label={`第 ${question.orderIndex} 题得分`}
                     type="number"
                     min={0}
                     max={question.maxScore}
@@ -188,6 +199,7 @@ export default function SheetGrader({
                     placeholder={`0-${question.maxScore}`}
                   />
                   <input
+                    aria-label={`第 ${question.orderIndex} 题判分说明`}
                     value={draftComments[question.id] ?? entry?.comment ?? ''}
                     onChange={(event) => setDraftComments((current) => ({ ...current, [question.id]: event.target.value }))}
                     onKeyDown={(event) => {

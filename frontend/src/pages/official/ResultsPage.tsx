@@ -8,8 +8,7 @@ export default function ResultsPage() {
       <section className="mx-auto max-w-5xl px-4 pb-20 pt-14 lg:px-6">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{resultsPolicy.title}</h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500">
-          竞赛培训行业常见的成绩宣传往往存在"统计膨胀"：把参加过一次模考的学员计入长期战绩、
-          不说明分母口径、不区分学员起点。我们选择用可核验的口径公布成绩，做不到核验的就不宣传。
+          所有对外展示的学员成绩均遵循以下统计口径。
         </p>
 
         <div className="mt-10 divide-y divide-slate-100 border-t border-slate-100">
@@ -26,11 +25,6 @@ export default function ResultsPage() {
 
         <p className="mt-10 max-w-2xl border-l-2 border-slate-200 pl-5 text-sm leading-relaxed text-slate-600">
           {resultsPolicy.statement}
-        </p>
-
-        <p className="mt-6 max-w-2xl text-xs leading-relaxed text-slate-400">
-          提示：任何机构宣传的"省队率""保送人数"都可以要求对方按上述口径逐条说明。
-          若对方无法提供学员姓名、所上课程与获奖年份等级的对应关系，请谨慎参考该数据。
         </p>
       </section>
     </OfficialShell>

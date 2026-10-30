@@ -1,10 +1,10 @@
-// 文件说明：清北营官网报名咨询页，极简风格：细边框表单 + 纯文字材料清单与常见问题。
+// 文件说明：清北营官网报名咨询页，极简风格：咨询表单与常见问题。
 import { useMemo, useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import OfficialShell from './components/OfficialShell'
 import { createSubmitEnrollmentLeadRequest } from '@/api/exam/SubmitEnrollmentLeadAPIMessage'
 import { sendAPI } from '@/lib/apiClient'
-import { brand, coursePrograms, enrollmentChecklist, faqs } from '@/content/siteContent'
+import { brand, coursePrograms, faqs } from '@/content/siteContent'
 
 const gradeOptions = ['高一', '高二', '高三']
 const stageOptions = ['国初（省级赛区）', '省队选拔', '国决冲刺', '兴趣学习']
@@ -68,7 +68,7 @@ export default function EnrollPage() {
         <h1 className="text-3xl font-semibold tracking-tight text-slate-950">报名咨询</h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500">{brand.contactNote}</p>
 
-        <div className="mt-10 grid gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mt-10 max-w-3xl rounded-2xl border border-border bg-card p-5 sm:p-8">
           {/* 表单 */}
           <div>
             {submitted ? (
@@ -76,7 +76,7 @@ export default function EnrollPage() {
                 <CheckCircle2 className="h-8 w-8 text-slate-900" />
                 <h2 className="text-lg font-semibold text-slate-950">提交成功</h2>
                 <p className="max-w-sm text-sm leading-relaxed text-slate-500">
-                  我们已收到你的咨询信息，招生老师将在 1 个工作日内通过你留下的联系方式与你联系。
+                  我们已收到你的咨询信息，将通过你留下的联系方式与你联系。
                 </p>
                 <button
                   type="button"
@@ -90,8 +90,8 @@ export default function EnrollPage() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid gap-5 sm:grid-cols-2">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <fieldset className="grid gap-5 sm:grid-cols-2"><legend className="mb-5 font-semibold">基本信息</legend>
                   <label className="block text-sm">
                     <span className="font-medium text-slate-800">学生姓名 *</span>
                     <input
@@ -107,7 +107,7 @@ export default function EnrollPage() {
                       value={form.contact}
                       onChange={(event) => update({ contact: event.target.value })}
                       className={inputClass}
-                      placeholder="方便招生老师联系"
+                      placeholder="请输入电话或微信"
                     />
                   </label>
                   <label className="block text-sm">
@@ -134,7 +134,7 @@ export default function EnrollPage() {
                       ))}
                     </select>
                   </label>
-                </div>
+                </fieldset>
                 <label className="block text-sm">
                   <span className="font-medium text-slate-800">意向班型</span>
                   <select
@@ -165,24 +165,12 @@ export default function EnrollPage() {
                 >
                   {submitting ? '提交中…' : '提交咨询'}
                 </button>
-                <p className="text-xs text-slate-400">提交即表示同意我们按隐私政策使用上述信息与你联系。</p>
+                <p className="text-xs text-slate-400">提交即表示同意我们仅将上述信息用于课程咨询联系。</p>
               </form>
             )}
           </div>
 
-          {/* 材料清单 */}
-          <div className="lg:border-l lg:border-slate-100 lg:pl-10">
-            <h2 className="text-base font-medium text-slate-950">{enrollmentChecklist.title}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-500">{enrollmentChecklist.intro}</p>
-            <ol className="mt-5 space-y-3">
-              {enrollmentChecklist.items.map((item, index) => (
-                <li key={item} className="flex gap-3 text-sm leading-relaxed text-slate-600">
-                  <span className="text-slate-300">{String(index + 1).padStart(2, '0')}</span>
-                  {item}
-                </li>
-              ))}
-            </ol>
-          </div>
+
         </div>
 
         {/* FAQ */}

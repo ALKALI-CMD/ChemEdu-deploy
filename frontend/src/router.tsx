@@ -1,26 +1,27 @@
+/* eslint-disable react-refresh/only-export-components -- Router configuration owns lazy route components, not a refresh boundary. */
+import { lazy, Suspense } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import RoleGuard from '@/components/RoleGuard'
 import { UserRole } from '@/objects/auth/UserRole'
-import AdminConsole from '@/pages/AdminConsole/AdminConsolePage'
-import AnalystCenterPage from '@/pages/AnalystCenter/AnalystCenterPage'
-import AssistantCenter from '@/pages/AssistantCenter/AssistantCenterPage'
-import BannedPage from '@/pages/BannedPage/BannedPage'
-import CourseDetail from '@/pages/CourseDetail/CourseDetailPage'
-import CourseDiscovery from '@/pages/CourseDiscovery/CourseDiscoveryPage'
-import EducationHome from '@/pages/EducationHome/EducationHomePage'
-import LoginPage from '@/pages/LoginPage/LoginPage'
-import NotificationCenter from '@/pages/NotificationCenter/NotificationCenterPage'
-import ProfilePage from '@/pages/ProfilePage/ProfilePage'
-import SearchCenter from '@/pages/SearchCenter/SearchCenterPage'
-import StudentCenter from '@/pages/StudentCenter/StudentCenterPage'
-import TeacherWorkbench from '@/pages/TeacherWorkbench/TeacherWorkbenchPage'
-import OfficialHomePage from '@/pages/official/OfficialHomePage'
-import ProgramsPage from '@/pages/official/ProgramsPage'
-import FacultyPage from '@/pages/official/FacultyPage'
-import ResearchPage from '@/pages/official/ResearchPage'
-import ResultsPage from '@/pages/official/ResultsPage'
-import EnrollPage from '@/pages/official/EnrollPage'
-import LegalPage from '@/pages/official/LegalPage'
+const AdminConsole = lazy(() => import('@/pages/AdminConsole/AdminConsolePage'))
+const AnalystCenterPage = lazy(() => import('@/pages/AnalystCenter/AnalystCenterPage'))
+const AssistantCenter = lazy(() => import('@/pages/AssistantCenter/AssistantCenterPage'))
+const BannedPage = lazy(() => import('@/pages/BannedPage/BannedPage'))
+const CourseDetail = lazy(() => import('@/pages/CourseDetail/CourseDetailPage'))
+const CourseDiscovery = lazy(() => import('@/pages/CourseDiscovery/CourseDiscoveryPage'))
+const EducationHome = lazy(() => import('@/pages/EducationHome/EducationHomePage'))
+const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'))
+const NotificationCenter = lazy(() => import('@/pages/NotificationCenter/NotificationCenterPage'))
+const ProfilePage = lazy(() => import('@/pages/ProfilePage/ProfilePage'))
+const SearchCenter = lazy(() => import('@/pages/SearchCenter/SearchCenterPage'))
+const StudentCenter = lazy(() => import('@/pages/StudentCenter/StudentCenterPage'))
+const TeacherWorkbench = lazy(() => import('@/pages/TeacherWorkbench/TeacherWorkbenchPage'))
+const OfficialHomePage = lazy(() => import('@/pages/official/OfficialHomePage'))
+const ProgramsPage = lazy(() => import('@/pages/official/ProgramsPage'))
+const FacultyPage = lazy(() => import('@/pages/official/FacultyPage'))
+const ResearchPage = lazy(() => import('@/pages/official/ResearchPage'))
+const ResultsPage = lazy(() => import('@/pages/official/ResultsPage'))
+const EnrollPage = lazy(() => import('@/pages/official/EnrollPage'))
 
 const allPlatformRoles = [
   UserRole.Student,
@@ -62,10 +63,6 @@ const routes = [
   {
     path: '/enroll',
     element: <EnrollPage />,
-  },
-  {
-    path: '/legal',
-    element: <LegalPage />,
   },
   {
     path: '/discover',
@@ -501,4 +498,7 @@ const routes = [
   },
 ]
 
-export const router = createBrowserRouter(routes)
+export const router = createBrowserRouter(routes.map((route) => ({
+  ...route,
+  element: <Suspense fallback={<div role="status" className="route-loading"><span className="loading-orbit" />正在加载页面…</div>}>{route.element}</Suspense>,
+})))

@@ -55,6 +55,7 @@ export default function ExamGradingPanel({ users }: ExamGradingPanelProps) {
 
   return (
     <div className="space-y-5">
+      {selectedExam && <section className="grid grid-cols-3 gap-3" aria-label="阅卷进度">{[['答题卡', grading.sheets.length], ['已阅完', gradedCount], ['待评分', grading.sheets.length - gradedCount]].map(([label, value]) => <div key={label} className="rounded-xl border border-border bg-card p-4"><p className="text-xs text-muted-foreground">{label}</p><p className="mt-2 text-2xl font-semibold tabular-nums">{value}</p></div>)}</section>}
       {/* 考试选择与统计 */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white/80 p-4">
         <div className="flex flex-wrap items-center gap-3">

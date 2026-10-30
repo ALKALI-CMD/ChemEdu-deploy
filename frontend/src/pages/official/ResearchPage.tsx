@@ -8,8 +8,7 @@ export default function ResearchPage() {
       <section className="mx-auto max-w-5xl px-4 pb-20 pt-14 lg:px-6">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-950">教研成果</h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500">
-          清北营的核心能力是持续产出高难度、贴近实战的模拟卷，并把每一次考试变成可度量的训练数据。
-          以下展示教研体系的四个组成部分。
+          以模拟命题与考试评定为教研核心，每一场考试都沉淀为可度量的训练数据。
         </p>
 
         <div className="mt-10 divide-y divide-slate-100 border-t border-slate-100">

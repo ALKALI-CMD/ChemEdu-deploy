@@ -1,3 +1,4 @@
+import WorkspaceShortcuts from '@/components/WorkspaceShortcuts'
 import EducationShell from '@/components/EducationShell'
 import { InlineNotice, useAutoClearNotice } from '@/components/ExperienceState'
 import type { EducationDashboardContextValue } from '@/components/education-dashboard-context'
@@ -58,6 +59,7 @@ export default function TeacherWorkbenchWorkspace({
       description={sectionCopy[section].description}
       navCounts={viewModel.navCounts}
     >
+      {section === 'overview' && <WorkspaceShortcuts role="teacher" />}
       <div className="space-y-6">
         <InlineNotice notice={actions.notice} />
         <TeacherWorkbenchSectionContent

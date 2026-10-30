@@ -1,4 +1,5 @@
-﻿import EducationShell from '@/components/EducationShell'
+import WorkspaceShortcuts from '@/components/WorkspaceShortcuts'
+import EducationShell from '@/components/EducationShell'
 import { InlineNotice, useAutoClearNotice } from '@/components/ExperienceState'
 import { useEducationDashboard } from '@/components/education-dashboard-context'
 import type { EducationDashboardResponse } from '@/objects/dashboard/apiTypes/EducationDashboardResponse'
@@ -45,6 +46,7 @@ export default function StudentCenterWorkspace({
       description={sectionCopy[section].description}
       navCounts={model.navCounts}
     >
+      {section === 'overview' && <WorkspaceShortcuts role="student" />}
       <div className="space-y-6">
         <InlineNotice notice={state.notice} />
 

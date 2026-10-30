@@ -49,6 +49,7 @@ function readPreferences(): UiPreferences {
 
 function applyPreferences(preferences: UiPreferences) {
   document.documentElement.classList.toggle('theme-dark', preferences.theme === 'dark')
+  document.documentElement.classList.toggle('dark', preferences.theme === 'dark')
   document.documentElement.classList.toggle('theme-compact', preferences.compact)
   document.documentElement.classList.toggle('theme-large-text', preferences.fontScale === 'large')
   document.documentElement.classList.remove('theme-accent-teal', 'theme-accent-blue', 'theme-accent-amber', 'theme-accent-rose')
@@ -79,7 +80,7 @@ export default function PreferenceButton() {
       </Button>
 
       {open ? (
-        <div className="absolute left-0 top-11 z-20 w-80 rounded-lg border border-slate-200 bg-white p-4 text-slate-900 shadow-xl">
+        <div className="absolute right-0 top-11 z-40 w-72 max-w-[calc(100vw-2rem)] rounded-lg border border-slate-200 bg-white p-4 text-slate-900 shadow-xl">
           <div>
             <p className="font-semibold text-slate-950">界面设置</p>
             <p className="mt-1 text-sm leading-6 text-slate-500">调整显示偏好。</p>

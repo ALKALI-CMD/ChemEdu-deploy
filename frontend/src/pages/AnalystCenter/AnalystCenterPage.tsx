@@ -51,9 +51,11 @@ export default function AnalystCenterPage() {
       description="折合分分布、题目得分率与期次趋势"
     >
       <div className="space-y-5">
+        {!loading && !error && <section className="grid gap-4 sm:grid-cols-2" aria-label="数据概览"><div className="rounded-xl border border-border bg-card p-5"><p className="text-sm text-muted-foreground">当前期次考试</p><p className="mt-3 text-3xl font-semibold tabular-nums">{summaries.length}</p></div><div className="rounded-xl border border-border bg-card p-5"><p className="text-sm text-muted-foreground">已加载期次</p><p className="mt-3 text-3xl font-semibold tabular-nums">{cohortOptions.size}</p></div></section>}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <select
+              aria-label="筛选期次"
               value={cohortFilter}
               onChange={(event) => {
                 setCohortFilter(event.target.value)

@@ -1,3 +1,4 @@
+import WorkspaceShortcuts from '@/components/WorkspaceShortcuts'
 import { useState } from 'react'
 import EducationShell from '@/components/EducationShell'
 import { InlineNotice, useAutoClearNotice } from '@/components/ExperienceState'
@@ -98,6 +99,7 @@ export default function AdminConsoleWorkspace({
       secondaryNav={adminNavModel.secondaryNav}
       navCounts={adminNavModel.navCounts}
     >
+      {section === 'overview' && <WorkspaceShortcuts role="admin" />}
       <div className="space-y-6">
         <InlineNotice notice={actions.notice} />
         <AdminConsoleSectionContent

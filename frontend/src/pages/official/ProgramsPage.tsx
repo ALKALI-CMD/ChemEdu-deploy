@@ -9,13 +9,12 @@ export default function ProgramsPage() {
       <section className="mx-auto max-w-5xl px-4 pb-20 pt-14 lg:px-6">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-950">课程体系</h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500">
-          全部课程以"完整套卷 + 评分细则 + 当晚讲评"为核心方法。每场考试都在清北营考试评定平台内完成判分、
-          折合分统计与学情分析；课程难度对标国初中后段与国决理论，不适合零基础学员。
+          从系统训练到赛前冲刺，选择适合当前阶段的课程。
         </p>
 
-        <div className="mt-10 divide-y divide-slate-100 border-t border-slate-100">
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
           {coursePrograms.map((program) => (
-            <article key={program.id} className="grid gap-x-10 gap-y-3 py-8 md:grid-cols-[1fr_1fr_1.2fr]">
+            <article key={program.id} className="program-card flex flex-col gap-5">
               <div>
                 <p className="text-xs text-slate-400">{program.season}</p>
                 <h2 className="mt-1 text-lg font-medium text-slate-950">{program.name}</h2>
@@ -39,6 +38,7 @@ export default function ProgramsPage() {
                 <span className="text-slate-800">适读：</span>
                 {program.suitableFor}
               </p>
+              <Link to="/enroll" className="academic-link mt-auto">咨询课程 →</Link>
             </article>
           ))}
         </div>

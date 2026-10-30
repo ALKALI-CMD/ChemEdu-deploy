@@ -1,3 +1,4 @@
+import OfficialShell from '@/pages/official/components/OfficialShell'
 import { Navigate } from 'react-router-dom'
 import { isBannedSession } from '@/components/auth-permissions'
 import { PageStateCard } from '@/components/ExperienceState'
@@ -28,8 +29,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white px-4 py-8 text-slate-950 lg:py-10">
-      <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_440px]">
+    <OfficialShell><div className="auth-layout px-4 py-10 text-foreground lg:py-16">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_440px]">
         <AuthHero />
         <AuthFormCard
           mode={auth.mode}
@@ -56,6 +57,6 @@ export default function LoginPage() {
           onBioChange={auth.setBio}
         />
       </div>
-    </div>
+    </div></OfficialShell>
   )
 }

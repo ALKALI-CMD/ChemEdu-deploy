@@ -1,3 +1,4 @@
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 // 文件说明：学生端争分申请对话框，在争分窗口内提交对某题判分的异议。
 import { useState } from 'react'
 import { createCreateArgueTicketRequest } from '@/api/exam/CreateArgueTicketAPIMessage'
@@ -44,10 +45,10 @@ export default function ArgueDialog({ examId, question, existingTicket, windowOp
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 px-4" onClick={onClose}>
-      <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl" onClick={(event) => event.stopPropagation()}>
-        <h3 className="text-lg font-semibold text-slate-950">申请争分 · 第 {question.orderIndex} 题</h3>
-        <p className="mt-1 text-sm text-slate-500">{question.title}（{question.topicTag} · 满分 {question.maxScore}）</p>
+    <Dialog open onOpenChange={(open) => { if (!open) onClose() }}>
+      <DialogContent className="w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-xl">
+        <DialogTitle className="pr-6 text-lg font-semibold">申请争分 · 第 {question.orderIndex} 题</DialogTitle>
+        <DialogDescription>{question.title}（{question.topicTag} · 满分 {question.maxScore}）</DialogDescription>
 
         {existingTicket ? (
           <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
@@ -83,7 +84,7 @@ export default function ArgueDialog({ examId, question, existingTicket, windowOp
             </div>
           </div>
         )}
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }

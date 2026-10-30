@@ -1,11 +1,12 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import { FlaskConical, Menu, ArrowUpRight } from 'lucide-react'
 import { useAuth } from '@/components/auth-context'
-import type { ShellNavItem } from './education-shell/navigation'
-import { getPrimaryNavByRole } from './education-shell/navigation'
+import { getPrimaryNavByRole, type ShellNavItem } from './education-shell/navigation'
 import PreferenceButton from './education-shell/PreferenceButton'
 import SecondaryNav from './education-shell/SecondaryNav'
-import TopNav from './education-shell/TopNav'
 import UserMenu from './education-shell/UserMenu'
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from './ui/sheet'
 
 type EducationShellProps = {
   eyebrow?: string
@@ -16,41 +17,33 @@ type EducationShellProps = {
   children: ReactNode
 }
 
-export default function EducationShell({
-  eyebrow = '清北营 · 化学竞赛训练与评定平台',
-  title,
-  secondaryNav = [],
-  navCounts,
-  children,
-}: EducationShellProps) {
+export default function EducationShell({ eyebrow = '学习与探索', title, description, secondaryNav = [], navCounts, children }: EducationShellProps) {
   const { session } = useAuth()
+  const [open, setOpen] = useState(false)
   const primaryNav = getPrimaryNavByRole(session?.user.role)
-
+  const navigation = <nav aria-label="平台导航" className="workspace-nav">{primaryNav.map(({ icon: Icon, ...item }) => <NavLink key={item.to} to={item.to} end={item.end} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}><Icon size={18} /><span>{item.label}</span>{!!navCounts?.[item.to] && <small>{navCounts[item.to]}</small>}</NavLink>)}</nav>
   return (
-    <div className="layout-stacked min-h-screen bg-white text-slate-900">
-      <header className="border-b border-slate-100 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-5 lg:px-8">
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div className="flex items-start gap-3">
-                <PreferenceButton />
-                <div className="space-y-2">
-                  <p className="text-xs font-medium tracking-[0.24em] text-slate-400">{eyebrow}</p>
-                  <div className="space-y-2">
-                    <h1 className="text-2xl font-semibold tracking-tight text-slate-950">{title}</h1>
-                  </div>
-                </div>
-              </div>
-              <UserMenu />
-            </div>
-
-            <TopNav items={primaryNav} navCounts={navCounts} />
-            <SecondaryNav items={secondaryNav} navCounts={navCounts} />
+    <div className="workspace-shell">
+      <a className="skip-link" href="#workspace-main">跳到主要内容</a>
+      <aside className="workspace-sidebar">
+        <Link to="/" className="workspace-brand"><FlaskConical size={24} /><span>清北营<small>CHEMISTRY OLYMPIAD</small></span></Link>
+        <p className="sidebar-label">WORKSPACE / 工作空间</p>{navigation}
+        <Link to="/" className="sidebar-home">访问官网 <ArrowUpRight size={15} /></Link>
+      </aside>
+      <div className="workspace-body">
+        <header className="workspace-topbar">
+          <div className="flex min-w-0 items-center gap-3">
+            <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><button className="workspace-menu" aria-label="打开导航"><Menu size={20} /></button></SheetTrigger><SheetContent side="left" aria-describedby={undefined} className="overflow-y-auto"><SheetTitle>清北营 · 工作空间</SheetTitle>{navigation}</SheetContent></Sheet>
+            <span className="text-sm text-muted-foreground">清北营 <span className="mx-2 opacity-40">/</span> {title}</span>
           </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-7xl px-4 py-8 lg:px-8">{children}</main>
+          <div className="flex items-center gap-3"><PreferenceButton /><UserMenu /></div>
+        </header>
+        <main id="workspace-main" className="workspace-main" tabIndex={-1}>
+          <div className="workspace-heading"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1>{description && <p className="workspace-description">{description}</p>}</div>
+          <SecondaryNav items={secondaryNav} navCounts={navCounts} />
+          <div className="workspace-content">{children}</div>
+        </main>
+      </div>
     </div>
   )
 }

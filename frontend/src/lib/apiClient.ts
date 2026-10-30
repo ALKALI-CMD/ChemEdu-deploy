@@ -14,16 +14,7 @@ export type ApiRequest<TPayload, TResponse> = {
 }
 
 function getDefaultApiBaseUrl(): string {
-  if (import.meta.env.DEV) {
-    return ''
-  }
-
-  if (typeof window === 'undefined') {
-    return 'http://127.0.0.1:8080'
-  }
-
-  const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:'
-  return `${protocol}//${window.location.hostname}:8080`
+  return ''
 }
 
 const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || getDefaultApiBaseUrl()).replace(/\/$/, '')
@@ -37,18 +28,15 @@ function resolveRequestUrl(path: string): string {
 }
 
 function formatApiError(status: number, body: string): string {
-  const trimmedBody = body.trim()
-
-  if (status === 404 && /^not found$/i.test(trimmedBody)) {
-    return '璇锋眰鐨勫悗绔帴鍙ｄ笉瀛樺湪銆傝纭鍚庣宸茬粡閲嶅惎锛屽苟涓斿綋鍓嶈繍琛岀殑鏄渶鏂颁唬鐮併€?'
-  }
-
+  if (status === 502 || status === 503 || status === 504) return '服务暂不可用或正在启动，请稍后重试。'
+  if (status === 413) return '上传内容过大，请压缩图片后重试。'
+  if (status === 404) return '请求的接口不存在，请刷新页面后重试。'
   try {
-    const parsed = JSON.parse(trimmedBody) as { message?: string; error?: string }
-    return parsed.message || parsed.error || trimmedBody || `鎺ュ彛璇锋眰澶辫触锛?{status}`
-  } catch {
-    return trimmedBody || `鎺ュ彛璇锋眰澶辫触锛?{status}`
-  }
+    const parsed = JSON.parse(body) as { message?: unknown; error?: unknown }
+    if (typeof parsed.message === 'string') return parsed.message
+    if (typeof parsed.error === 'string') return parsed.error
+  } catch { /* 不向用户展示网关 HTML。 */ }
+  return `请求失败（${status}），请稍后重试。`
 }
 
 export function apiNameOf(request: ApiRequest<unknown, unknown>): string {
@@ -63,7 +51,7 @@ export async function requestJson<TResponse>(path: string, options: RequestOptio
       ...(payload !== undefined ? { 'Content-Type': 'application/json' } : {}),
     },
     body: payload !== undefined ? JSON.stringify(payload) : undefined,
-  })
+  }).catch(() => { throw new Error('网络连接失败，请检查网络后重试。') })
 
   if (!response.ok) {
     const message = await response.text()
