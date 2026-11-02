@@ -2,6 +2,7 @@ package support
 
 import microservices.course.catalog.objects.*
 import microservices.auth.objects.*
+import microservices.admin.objects.PermissionMatrixEntry
 
 object TestDataFactory:
 
