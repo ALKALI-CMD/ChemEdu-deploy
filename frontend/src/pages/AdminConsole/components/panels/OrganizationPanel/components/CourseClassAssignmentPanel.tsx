@@ -34,12 +34,12 @@ export default function CourseClassAssignmentPanel({
   return (
     <div className="grid gap-6 xl:grid-cols-2">
       <EditorCard
-        title="课程教学班分配"
-        actionLabel="保存课程教学班"
+        title="课程训练班分配"
+        actionLabel="保存课程训练班"
         pending={busyKey === 'org:course-assignment'}
         onSubmit={() => {
           if (!selectedCourse) return
-          return handleSave(() => onAssignCourseClasses(selectedCourse.id, selectedCourseClassIds), '课程分班已完成', '课程教学班分配已更新。')
+          return handleSave(() => onAssignCourseClasses(selectedCourse.id, selectedCourseClassIds), '课程分班已完成', '课程训练班分配已更新。')
         }}
       >
         <Field label="目标课程">

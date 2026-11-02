@@ -178,10 +178,12 @@ private[learning] object LearningTableInitializer:
     executeStatements(connection, initStatements)
 
   def seedSamples(connection: Connection): IO[Unit] =
-    for
-      _ <- seedIfEmpty(connection, progressSeedCountSql, progressSeedStatements)
-      _ <- seedIfEmpty(connection, quizAnswerKeySeedCountSql, quizAnswerKeySeedStatements)
-    yield ()
+    if !sys.env.get("ENABLE_LEGACY_DEMO_DATA").contains("true") then IO.unit
+    else
+      for
+        _ <- seedIfEmpty(connection, progressSeedCountSql, progressSeedStatements)
+        _ <- seedIfEmpty(connection, quizAnswerKeySeedCountSql, quizAnswerKeySeedStatements)
+      yield ()
 
   private def executeStatements(connection: Connection, statements: List[String]): IO[Unit] =
     statements.foldLeft(IO.unit)((acc, sql) => acc.flatMap(_ => executeSql(connection, sql)))

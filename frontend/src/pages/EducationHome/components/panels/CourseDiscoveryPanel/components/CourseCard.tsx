@@ -81,7 +81,7 @@ export default function CourseCard({
 
         <div className="space-y-2">
           <div className="flex flex-wrap gap-3 text-sm text-slate-600">
-            {course.semesterLabel ? <span>学期：{course.semesterLabel}</span> : null}
+            {course.semesterLabel ? <span>训练期：{course.semesterLabel}</span> : null}
             {course.offeringCode ? <span>批次：{course.offeringCode}</span> : null}
             <span>报名：{course.enrollmentPolicy.requiresApproval ? '需审核' : '直接报名'}</span>
             {course.enrollmentPolicy.waitlistEnabled ? <span>支持候补</span> : null}

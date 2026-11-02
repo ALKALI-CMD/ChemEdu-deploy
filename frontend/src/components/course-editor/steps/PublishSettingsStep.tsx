@@ -33,7 +33,7 @@ export default function PublishSettingsStep({
     <div className="space-y-5">
       <div className="grid gap-4 md:grid-cols-3">
         <div className="grid gap-2">
-          <Label htmlFor={`${title}-semester-label`}>学期（选填）</Label>
+          <Label htmlFor={`${title}-semester-label`}>训练期（选填）</Label>
           <Input
             id={`${title}-semester-label`}
             placeholder="如 2026 春"

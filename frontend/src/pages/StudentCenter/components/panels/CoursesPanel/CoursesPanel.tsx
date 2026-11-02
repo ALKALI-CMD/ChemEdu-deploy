@@ -75,8 +75,8 @@ export default function EnrolledCoursesPanel({ courses }: EnrolledCoursesPanelPr
         {courses.length === 0 ? (
           <EmptyIllustrationState
             kind="courses"
-            title="暂无报名课程"
-            message="暂无课程。"
+            title="暂无已报名的化学竞赛课程"
+            message="暂无已发布的化学竞赛课程，请通过报名咨询了解课程安排。"
           />
         ) : (
           <>

@@ -79,9 +79,9 @@ export default function ProfileEditFormCard({
             aria-invalid={Boolean(errors.subject)}
             placeholder={
               role === UserRole.Student
-                ? '例如：前端开发、数据分析、课程设计'
+                ? '例如：无机化学、有机化学、国初训练'
                 : role === UserRole.Teacher
-                  ? '例如：软件工程、数据库系统'
+                  ? '例如：有机化学、结构化学'
                   : '例如：课程运营、教学支持'
             }
             value={subject}

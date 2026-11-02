@@ -189,10 +189,12 @@ private[admin] object AdminTableInitializer:
     executeSql(connection, initTableSql)
 
   def seedSamples(connection: Connection): IO[Unit] =
-    CourseAuditTable.count(connection).flatMap { count =>
-      if count == 0 then executeStatements(connection, CourseAuditTable.seedStatements)
-      else IO.unit
-    }
+    if !sys.env.get("ENABLE_LEGACY_DEMO_DATA").contains("true") then IO.unit
+    else
+      CourseAuditTable.count(connection).flatMap { count =>
+        if count == 0 then executeStatements(connection, CourseAuditTable.seedStatements)
+        else IO.unit
+      }
 
   private def executeStatements(connection: Connection, statements: List[String]): IO[Unit] =
     statements.foldLeft(IO.unit)((acc, sql) => acc.flatMap(_ => executeSql(connection, sql)))

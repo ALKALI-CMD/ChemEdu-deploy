@@ -131,7 +131,7 @@ private[catalog] object CourseTable:
   private[catalog] def seedInitialDataIfNeeded(connection: Connection): IO[Unit] =
     for
       userCount <- scalar(connection, countUsersSql)
-      _ <- if userCount == 0 then executeStatements(connection, CourseSeedTable.seedStatements) else IO.unit
+      _ <- if userCount == 0 && sys.env.get("ENABLE_LEGACY_DEMO_DATA").contains("true") then executeStatements(connection, CourseSeedTable.seedStatements) else IO.unit
       _ <- executeSql(connection, refreshCourseRatingsSql)
       _ <- executeSql(connection, backfillDiscussionAuthorIdsSql)
       _ <- executeSql(connection, backfillDiscussionReplyAuthorIdsSql)

@@ -86,8 +86,8 @@ export default function OrganizationStructureManagementPanel({
 
   return (
     <div className="grid gap-6 xl:grid-cols-2">
-      <EditorCard title="院系管理" actionLabel={departmentForm.departmentId ? '保存院系' : '新增院系'} pending={busyKey === 'org:department'} onSubmit={() => handleSave(() => onSaveDepartment({ departmentId: departmentForm.departmentId || undefined, name: departmentForm.name }), '院系已保存', '院系信息已更新。', resetDepartmentForm)}>
-        <Field label="院系名称">
+      <EditorCard title="教研组管理" actionLabel={departmentForm.departmentId ? '保存教研组' : '新增教研组'} pending={busyKey === 'org:department'} onSubmit={() => handleSave(() => onSaveDepartment({ departmentId: departmentForm.departmentId || undefined, name: departmentForm.name }), '教研组已保存', '教研组信息已更新。', resetDepartmentForm)}>
+        <Field label="教研组名称">
           <Input value={departmentForm.name} onChange={(event) => setDepartmentForm((current) => ({ ...current, name: event.target.value }))} />
         </Field>
         <ListCard>
@@ -97,14 +97,14 @@ export default function OrganizationStructureManagementPanel({
               title={department.name}
               subtitle={department.id}
               onEdit={() => setDepartmentForm({ departmentId: department.id, name: department.name })}
-              onDelete={() => void handleDelete(`院系 ${department.name}`, () => onDeleteDepartment(department.id))}
+              onDelete={() => void handleDelete(`教研组 ${department.name}`, () => onDeleteDepartment(department.id))}
             />
           ))}
         </ListCard>
       </EditorCard>
 
-      <EditorCard title="专业管理" actionLabel={majorForm.majorId ? '保存专业' : '新增专业'} pending={busyKey === 'org:major'} onSubmit={() => handleSave(() => onSaveMajor({ majorId: majorForm.majorId || undefined, departmentId: majorForm.departmentId, name: majorForm.name }), '专业已保存', '专业信息已更新。', resetMajorForm)}>
-        <Field label="所属院系">
+      <EditorCard title="训练方向管理" actionLabel={majorForm.majorId ? '保存训练方向' : '新增训练方向'} pending={busyKey === 'org:major'} onSubmit={() => handleSave(() => onSaveMajor({ majorId: majorForm.majorId || undefined, departmentId: majorForm.departmentId, name: majorForm.name }), '训练方向已保存', '训练方向信息已更新。', resetMajorForm)}>
+        <Field label="所属教研组">
           <select className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={majorForm.departmentId} onChange={(event) => setMajorForm((current) => ({ ...current, departmentId: event.target.value }))}>
             {dashboard.departments.map((department) => (
               <option key={department.id} value={department.id}>
@@ -113,7 +113,7 @@ export default function OrganizationStructureManagementPanel({
             ))}
           </select>
         </Field>
-        <Field label="专业名称">
+        <Field label="训练方向名称">
           <Input value={majorForm.name} onChange={(event) => setMajorForm((current) => ({ ...current, name: event.target.value }))} />
         </Field>
         <ListCard>
@@ -123,14 +123,14 @@ export default function OrganizationStructureManagementPanel({
               title={major.name}
               subtitle={departmentMap.get(major.departmentId)?.name ?? major.departmentId}
               onEdit={() => setMajorForm({ majorId: major.id, departmentId: major.departmentId, name: major.name })}
-              onDelete={() => void handleDelete(`专业 ${major.name}`, () => onDeleteMajor(major.id))}
+              onDelete={() => void handleDelete(`训练方向 ${major.name}`, () => onDeleteMajor(major.id))}
             />
           ))}
         </ListCard>
       </EditorCard>
 
-      <EditorCard title="教学班管理" actionLabel={academicClassForm.academicClassId ? '保存教学班' : '新增教学班'} pending={busyKey === 'org:class'} onSubmit={() => handleSave(() => onSaveAcademicClass({ academicClassId: academicClassForm.academicClassId || undefined, majorId: academicClassForm.majorId, grade: academicClassForm.grade, name: academicClassForm.name, capacity: academicClassForm.capacity }), '教学班已保存', '教学班信息已更新。', resetAcademicClassForm)}>
-        <Field label="所属专业">
+      <EditorCard title="训练班管理" actionLabel={academicClassForm.academicClassId ? '保存训练班' : '新增训练班'} pending={busyKey === 'org:class'} onSubmit={() => handleSave(() => onSaveAcademicClass({ academicClassId: academicClassForm.academicClassId || undefined, majorId: academicClassForm.majorId, grade: academicClassForm.grade, name: academicClassForm.name, capacity: academicClassForm.capacity }), '训练班已保存', '训练班信息已更新。', resetAcademicClassForm)}>
+        <Field label="所属训练方向">
           <select className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={academicClassForm.majorId} onChange={(event) => setAcademicClassForm((current) => ({ ...current, majorId: event.target.value }))}>
             {dashboard.majors.map((major) => (
               <option key={major.id} value={major.id}>
@@ -155,14 +155,14 @@ export default function OrganizationStructureManagementPanel({
               title={academicClass.name}
               subtitle={`${majorMap.get(academicClass.majorId)?.name ?? academicClass.majorId} / ${academicClass.grade} / ${academicClass.studentIds.length}/${academicClass.capacity}`}
               onEdit={() => setAcademicClassForm({ academicClassId: academicClass.id, majorId: academicClass.majorId, grade: academicClass.grade, name: academicClass.name, capacity: academicClass.capacity })}
-              onDelete={() => void handleDelete(`教学班 ${academicClass.name}`, () => onDeleteAcademicClass(academicClass.id))}
+              onDelete={() => void handleDelete(`训练班 ${academicClass.name}`, () => onDeleteAcademicClass(academicClass.id))}
             />
           ))}
         </ListCard>
       </EditorCard>
 
-      <EditorCard title="学期管理" actionLabel={semesterForm.semesterId ? '保存学期' : '新增学期'} pending={busyKey === 'org:semester'} onSubmit={() => handleSave(() => onSaveSemester({ semesterId: semesterForm.semesterId || undefined, label: semesterForm.label, startAt: semesterForm.startAt, endAt: semesterForm.endAt, archived: semesterForm.archived }), '学期已保存', '学期信息已更新。', resetSemesterForm)}>
-        <Field label="学期名称">
+      <EditorCard title="训练期管理" actionLabel={semesterForm.semesterId ? '保存训练期' : '新增训练期'} pending={busyKey === 'org:semester'} onSubmit={() => handleSave(() => onSaveSemester({ semesterId: semesterForm.semesterId || undefined, label: semesterForm.label, startAt: semesterForm.startAt, endAt: semesterForm.endAt, archived: semesterForm.archived }), '训练期已保存', '训练期信息已更新。', resetSemesterForm)}>
+        <Field label="训练期名称">
           <Input value={semesterForm.label} onChange={(event) => setSemesterForm((current) => ({ ...current, label: event.target.value }))} />
         </Field>
         <Field label="开始日期">
@@ -182,7 +182,7 @@ export default function OrganizationStructureManagementPanel({
               title={semester.label}
               subtitle={`${semester.startAt} - ${semester.endAt} / ${semester.archived ? '已归档' : '进行中'}`}
               onEdit={() => setSemesterForm({ semesterId: semester.id, label: semester.label, startAt: semester.startAt, endAt: semester.endAt, archived: semester.archived })}
-              onDelete={() => void handleDelete(`学期 ${semester.label}`, () => onDeleteSemester(semester.id))}
+              onDelete={() => void handleDelete(`训练期 ${semester.label}`, () => onDeleteSemester(semester.id))}
             />
           ))}
         </ListCard>

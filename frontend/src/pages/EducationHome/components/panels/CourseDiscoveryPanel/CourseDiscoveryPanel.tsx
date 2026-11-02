@@ -66,7 +66,7 @@ export default function CourseGrid({ dashboard, onEnroll }: CourseGridProps) {
       />
 
       {filteredCourses.length === 0 ? (
-        <CourseEmptyState onReset={resetFilters} />
+        <CourseEmptyState onReset={resetFilters} hasCourses={visibleCourses.length > 0} />
       ) : (
         <CourseResults
           courses={filteredCourses}
@@ -78,8 +78,8 @@ export default function CourseGrid({ dashboard, onEnroll }: CourseGridProps) {
         />
       )}
 
-      <PaymentConfirmDialog
-        course={paymentCourse ?? visibleCourses[0]}
+      {paymentCourse && <PaymentConfirmDialog
+        course={paymentCourse}
         userId={String(dashboard.currentUser.id)}
         isOpen={Boolean(paymentCourse)}
         isSubmitting={pendingCourseId === String(paymentCourse?.id)}
@@ -89,7 +89,7 @@ export default function CourseGrid({ dashboard, onEnroll }: CourseGridProps) {
           }
         }}
         onConfirm={handleConfirmPayment}
-      />
+      />}
     </div>
   )
 }

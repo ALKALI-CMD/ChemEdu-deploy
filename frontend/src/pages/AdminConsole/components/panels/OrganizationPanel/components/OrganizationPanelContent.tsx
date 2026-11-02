@@ -97,7 +97,7 @@ export default function OrganizationPanelContent(props: OrganizationPanelContent
           semesters={dashboard.semesters}
           courses={dashboard.courses}
           busyKey={busyKey}
-          onArchiveSemester={(semesterId) => void model.handleMessageAction('学期已归档', () => onArchiveSemester(semesterId, true))}
+          onArchiveSemester={(semesterId) => void model.handleMessageAction('训练期已归档', () => onArchiveSemester(semesterId, true))}
         />
         <OrganizationStructureManagementPanel
           dashboard={dashboard}

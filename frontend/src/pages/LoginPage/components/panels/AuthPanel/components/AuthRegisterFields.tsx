@@ -2,7 +2,7 @@ import { UserRole } from '@/objects/auth/UserRole'
 import { Input, Textarea } from '@/components/ui/UiComponents'
 import type { AuthFieldErrors } from '../functions/authPanelModel'
 
-const studentGradeOptions = ['大一', '大二', '大三', '大四']
+const studentGradeOptions = ['高一', '高二', '高三']
 
 type AuthRegisterFieldsProps = {
   role: UserRole
@@ -28,7 +28,7 @@ export default function AuthRegisterFields({
   onBioChange,
 }: AuthRegisterFieldsProps) {
   const profileLabel = role === UserRole.Student ? '年级' : role === UserRole.Teacher ? '授课方向' : '辅助方向（选填）'
-  const profilePlaceholder = role === UserRole.Student ? undefined : role === UserRole.Teacher ? '例如：软件工程' : '例如：课程答疑、作业辅导'
+  const profilePlaceholder = role === UserRole.Student ? undefined : role === UserRole.Teacher ? '例如：有机化学' : '例如：课程答疑、作业辅导'
   const profileValue = role === UserRole.Student ? grade : subject
   const bioPlaceholder =
     role === UserRole.Student

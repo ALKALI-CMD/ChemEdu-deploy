@@ -11,9 +11,9 @@ export default function CourseDiscovery() {
   useAutoClearNotice(notice, setNotice)
 
   return (
-    <EducationPageGuard title="课程发现" description="课程列表。" loadingVariant="courses">
+    <EducationPageGuard title="化学竞赛课程" description="课程列表。" loadingVariant="courses">
       {(dashboard) => (
-        <EducationShell eyebrow="课程发现" title="课程发现" description="按分类、教师、状态和价格筛选课程。">
+        <EducationShell eyebrow="课程发现" title="化学竞赛课程" description="无机、有机、物理与结构化学，面向国初与国决训练。">
           <div className="space-y-8">
             <InlineNotice notice={notice} />
 

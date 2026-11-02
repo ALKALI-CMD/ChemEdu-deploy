@@ -4,14 +4,15 @@ import { Button } from '@/components/ui/UiComponents'
 
 type CourseEmptyStateProps = {
   onReset: () => void
+  hasCourses?: boolean
 }
 
-export default function CourseEmptyState({ onReset }: CourseEmptyStateProps) {
+export default function CourseEmptyState({ onReset, hasCourses = true }: CourseEmptyStateProps) {
   return (
     <EmptyIllustrationState
       kind="courses"
-      title="没有找到匹配课程"
-      message="暂无匹配课程。"
+      title={hasCourses ? '没有找到匹配课程' : '化学竞赛课程'}
+      message={hasCourses ? '请调整筛选条件。' : '暂无已发布的在线课程。可先查看化学竞赛课程体系，或提交报名咨询。'}
       action={
         <div className="flex flex-wrap justify-center gap-3">
           <Button
@@ -23,8 +24,8 @@ export default function CourseEmptyState({ onReset }: CourseEmptyStateProps) {
             重置筛选
           </Button>
           <Button asChild className="rounded-full bg-slate-950 !text-white hover:bg-slate-800 hover:!text-white">
-            <Link to="/courses" className="!text-white">
-              课程发现
+            <Link to="/programs" className="!text-white">
+              查看课程体系
             </Link>
           </Button>
         </div>

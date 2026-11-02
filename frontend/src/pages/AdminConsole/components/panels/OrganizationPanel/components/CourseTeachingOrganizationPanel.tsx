@@ -29,7 +29,7 @@ export default function CourseTeachingOrganizationPanel({
               <div>
                 <p className="font-semibold text-slate-950">{course.title}</p>
                 <p className="mt-1">
-                  {course.semesterLabel || '未设置学期'} / {course.offeringCode || '未设置批次'}
+                  {course.semesterLabel || '未设置训练期'} / {course.offeringCode || '未设置批次'}
                 </p>
               </div>
               <p className="text-slate-500">
@@ -37,7 +37,7 @@ export default function CourseTeachingOrganizationPanel({
               </p>
             </div>
             <p className="mt-2">
-              教学班：
+              训练班：
               {course.academicClassIds.length > 0
                 ? course.academicClassIds
                     .map((classId) => {

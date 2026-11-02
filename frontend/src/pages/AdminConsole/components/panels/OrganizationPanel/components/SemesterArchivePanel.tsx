@@ -24,7 +24,7 @@ export default function SemesterArchivePanel({
           <CardTitle>结课归档</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 text-sm text-slate-600">
-          <p>进行中学期：{activeSemesterCount}</p>
+          <p>进行中训练期：{activeSemesterCount}</p>
           {semesters.map((semester) => {
             const linkedCourseCount = courses.filter((course) => course.semesterLabel === semester.label).length
             const busy = busyKey === `org:semester-archive:${semester.id}`
@@ -36,7 +36,7 @@ export default function SemesterArchivePanel({
                     <p className="mt-1">{semester.archived ? '已归档' : '进行中'} / 关联课程 {linkedCourseCount}</p>
                   </div>
                   <Button size="sm" disabled={semester.archived || busy} onClick={() => onArchiveSemester(semester.id)}>
-                    归档学期与课程
+                    归档训练期与课程
                   </Button>
                 </div>
               </div>

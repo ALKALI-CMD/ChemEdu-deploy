@@ -127,7 +127,7 @@ export default function BasicSettingsStep({ title, form, setForm, fieldErrors = 
             id={`${title}-course-title`}
             required
             aria-required="true"
-            placeholder="例如：TypeScript 全栈开发"
+            placeholder="例如：国初有机化学专题"
             value={form.title}
             aria-invalid={Boolean(fieldErrors.title)}
             onChange={(event) => setForm((prev) => ({ ...prev, title: cleanText(event.target.value) }))}

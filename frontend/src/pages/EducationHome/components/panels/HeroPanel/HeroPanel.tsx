@@ -73,7 +73,7 @@ export default function HeroSection({ dashboard }: HeroSectionProps) {
           <div className="space-y-3">
             <h2 className="max-w-3xl text-4xl font-semibold tracking-tight text-slate-950">选择要进入的功能</h2>
             <p className="max-w-3xl text-sm leading-7 text-slate-600">
-              首页只保留角色相关入口和关键统计；课程发现、作业、测验、批改、治理等内容分别进入各自页面处理。
+              围绕化学竞赛，查看课程、训练任务、考试成绩与学习反馈。
             </p>
           </div>
 

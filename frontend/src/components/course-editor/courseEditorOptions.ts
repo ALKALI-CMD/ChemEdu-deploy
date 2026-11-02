@@ -14,10 +14,10 @@ function cleanText(value: string) {
   return value.trim()
 }
 
-const rawCategoryOptions = ['前端开发', '后端开发', '软件工程', '数据分析', '人工智能', '设计与产品', '通识课程'] as const
+const rawCategoryOptions = ['无机化学', '有机化学', '物理化学', '结构化学', '化学实验', '国初综合', '国决专题'] as const
 const categoryOptions = Array.from(new Set(rawCategoryOptions)) as typeof rawCategoryOptions[number][]
 
-const gradeOptions = ['不限年级', '大一', '大二', '大三', '大四', '研究生'] as const
+const gradeOptions = ['不限年级', '高一', '高二', '高三'] as const
 
 const scheduleOptions = [
   '周一 08:00-10:00',

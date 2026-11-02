@@ -34,7 +34,7 @@ export default function StudentClassAssignmentPanel({
   return (
     <div className="grid gap-6 xl:grid-cols-2">
       <EditorCard title="学生批量调班" actionLabel="保存学生班级" pending={busyKey === 'org:student-assignment'} onSubmit={() => handleSave(() => onAssignStudents(studentAssignmentClassId, selectedStudentIds), '学生调班已完成', '学生班级归属已更新。')}>
-        <Field label="目标教学班">
+        <Field label="目标训练班">
           <select className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={studentAssignmentClassId} onChange={(event) => setStudentAssignmentClassId(event.target.value)}>
             {dashboard.academicClasses.map((academicClass) => (
               <option key={academicClass.id} value={academicClass.id}>

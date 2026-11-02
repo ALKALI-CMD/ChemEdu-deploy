@@ -26,7 +26,7 @@ export default function CourseMetaPanel({ course, enrolled, teacherName, assista
         <div className="grid gap-3 md:grid-cols-2">
           <p>授课教师：{zh(teacherName)}</p>
           <p>助教团队：{assistantNames || '暂无'}</p>
-          <p>学期：{course.semesterLabel || '未设置'}</p>
+          <p>训练期：{course.semesterLabel || '未设置'}</p>
           <p>开课批次：{course.offeringCode || '未设置'}</p>
           <p>课程状态：{statusLabel[course.status]}</p>
           <p>课程价格：{course.price === 0 ? '免费' : `￥${course.price}`}</p>
@@ -42,7 +42,7 @@ export default function CourseMetaPanel({ course, enrolled, teacherName, assista
 
         {course.academicClassIds.length > 0 ? (
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <p className="font-medium text-slate-950">教学班</p>
+            <p className="font-medium text-slate-950">训练班</p>
             <p className="mt-2">{course.academicClassIds.join('、')}</p>
           </div>
         ) : null}
